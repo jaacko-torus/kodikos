@@ -15,16 +15,32 @@ body {
 #warning_opener {
 	cursor: pointer;
 	position: absolute;
-	left: -2em;
-	top: -2em;
-	width: 4em;
-	height: 4em;
+	left: calc(-3em - 1px);
+	top: calc(-3em - 1px);
+	width: 6em;
+	height: 6em;
 	border-radius: 100%;
-	background-color: #c2d94c;
+	background-image: url("icon/original.png");
+	background-position: center;
+	background-size: cover;
+	border-width: 2px;
+	border-style: dashed;
+	border-color: #b3b1ad;
+	transform: rotate(calc(-75deg));
+	transition-property: transform;
+	transition-duration: 8s;
 }
 
-#warning_opener:active, #warning_clipboard:active {
-	background-color: #b3b1ad;
+#warning_opener:hover {
+	animation-name: rotate;
+	animation-duration: 16s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+@keyframes rotate {
+	from { transform: rotate(-75deg); }
+	to { transform: rotate(285deg); }
 }
 
 #warning_clipboard {
@@ -37,6 +53,14 @@ body {
 	border-radius: 3px;
 	color: #0a0e14;
 	background-color: #c2d94c;
+}
+
+#warning_opener:hover, #warning_clipboard:hover {
+	opacity: 0.7;
+}
+
+#warning_opener:active, #warning_clipboard:active {
+	background-color: #b3b1ad;
 }
 
 kbd {
@@ -60,7 +84,7 @@ h4 {
 }
 
 hr {
-	border-color: #b3b1ad;
+	border-color: #fe9;
 	border-style: dashed;
 	margin-left: 1em;
 	margin-right: 1em;
@@ -102,7 +126,7 @@ hr {
 }
 
 #container input[type="number"] {
-	background-color: #b3b1ad;
+	background-color: white; /* #b3b1ad; */
 	border: none;
 	border-radius: 3px;
 	font-family: inherit;
@@ -116,6 +140,7 @@ hr {
 	height: fit-content;
 	border-radius: 3px;
 	border: 1px solid #b3b1ad;
+	border-width: 0px;
 }
 
 .password {
@@ -140,6 +165,7 @@ hr {
 	border-top-width: 1px;
 	border-right-width: 0;
 	border-bottom-width: 1px;
+	border-width: 0;
 	
 	border-radius: 3px 0px 0px 3px;
 	
@@ -151,7 +177,9 @@ hr {
 }
 
 .password input.copied {
-	color: #c2d94c;
+	/* color: #c2d94c; */
+	background-color: #c2d94c;
+	color: #0a0e14;
 }
 
 input:focus-visible {
@@ -170,6 +198,7 @@ input:focus-visible {
 	border-top-width: 1px;
 	border-right-width: 1px;
 	border-bottom-width: 1px;
+	border-width: 0;
 	
 	border-radius: 0px 3px 3px 0px;
 	
@@ -177,12 +206,14 @@ input:focus-visible {
 }
 
 .password button:hover {
-	background-color: #b3b1ad;
+	/* background-color: #b3b1ad; */
+	background-color: #c2d94c;
 }
 
 /* https://codepen.io/sosuke/full/Pjoqqp */
 .password button object {
-	filter: /* #b3b1ad */ invert(76%) sepia(11%) saturate(85%) hue-rotate(2deg) brightness(96%) contrast(80%);
+	filter: /* #c2d94c */ invert(77%) sepia(45%) saturate(555%) hue-rotate(23deg) brightness(101%) contrast(90%);
+	/* filter: #b3b1ad invert(76%) sepia(11%) saturate(85%) hue-rotate(2deg) brightness(96%) contrast(80%); */
 }
 
 .password button:hover object {
@@ -190,6 +221,7 @@ input:focus-visible {
 }
 
 .password button:active + input {
-	background-color: #b3b1ad;
+	/* background-color: #b3b1ad; */
+	background-color: #c2d94c;
 	color: #0a0e14;
 }

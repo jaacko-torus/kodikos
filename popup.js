@@ -24,9 +24,9 @@ const codeMirrorGen = (query, value) => CodeMirror(document.querySelector(query)
 
 const codeMirror = {
 	filter: codeMirrorGen("#container > #filter", "(w, i, a) => 5 <= w.length && w.length <= 8"),
-	map: codeMirrorGen("#container > #map", "(w, i, a) => w"),
-	reduce: codeMirrorGen("#container > #reduce", "(p, c, i, a) => `${p}${random([\"-\"])}${c}`"),
-	result: codeMirrorGen("#container > #result", "(r) => `${random(to_a(\"0123456789\"))}${r}${random(to_a(\",._=+\"))}`"),
+	map: codeMirrorGen("#container > #map", "(w, i, a) => i === 0 ? capitalize(w) : w"),
+	reduce: codeMirrorGen("#container > #reduce", "(p, c, i, a) => `${p}${random([\"-\", \".\"])}${c}`"),
+	result: codeMirrorGen("#container > #result", "(r) => `${random(to_a(\"0123456789\"))}${r}${random(to_a(\"~!@#$%^&*_+:;,./?\"))}`"),
 }
 
 Object.entries(codeMirror).forEach(([name, codeMirror]) => {
@@ -71,7 +71,7 @@ document.getElementById("frame").onload = function(e) {
 	this.contentWindow.postMessage({ type: "min_max", data: null })
 	
 	// Password generation
-	const raw_fns = Object.fromEntries(Object.entries(codeMirror)
+	const raw_fns = () => Object.fromEntries(Object.entries(codeMirror)
 		// can't `eval` here
 		.map(([name, codeMirror]) => [name, codeMirror.getValue()])
 	)
@@ -79,7 +79,7 @@ document.getElementById("frame").onload = function(e) {
 	const generate = (number_of_passes) => ({
 		type: "generate",
 		data: {
-			raw_fns,
+			raw_fns: raw_fns(),
 			number_of_passes,
 			size_min_value: $size_min.value,
 			size_max_value: $size_max.value
@@ -101,7 +101,16 @@ document.getElementById("frame").onload = function(e) {
 	})
 }
 
-let $copied_pass = null
+let $copied_pass = document.getElementById("pass1")
+
+const init_copy_to_clipboard_onclick = (e) => {
+	$copied_pass.focus()
+	$copied_pass.select()
+	copy_to_clipboard($copied_pass.value, () => $copied_pass.classList.add("copied"))
+}
+
+$copied_pass.onclick = init_copy_to_clipboard_onclick
+document.getElementById("pass1_copy").onclick = init_copy_to_clipboard_onclick
 
 const copy_to_clipboard = (text, success) => {
 	navigator.clipboard.writeText(text).then(
@@ -154,7 +163,9 @@ window.onmessage = (message) => {
 				$password.append($pass_copy, $pass)
 				
 				// Add events
-				$pass_copy.onclick = (e) => {
+				const copy_to_clipboard_onclick = (e) => {
+					$pass.focus()
+					$pass.select()
 					// Copy to clipboard
 					copy_to_clipboard($pass.value, () => {
 						// On success, style
@@ -163,6 +174,9 @@ window.onmessage = (message) => {
 						$copied_pass.classList.add("copied")
 					})
 				}
+				
+				$pass.onclick = copy_to_clipboard_onclick
+				$pass_copy.onclick = copy_to_clipboard_onclick
 				
 				return $password
 			}))
