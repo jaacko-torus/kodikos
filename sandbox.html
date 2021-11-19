@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head></head>
+
+<body>
+<script>
+const random_sort = array => array
+	.map(value => ({ value, random: Math.random() }))
+	.sort((a, b) => a.random - b.random)
+	.map(e => e.value)
+
+/** @see https://stackoverflow.com/a/4550514/9564132 */
+const random = array => array[Math.floor(Math.random() * array.length)] ?? "-"
+
+const to_a = string => string.split("")
+
+///////////////////
+
+const min_max = (array) => {
+	return array.reduce(({ min, max }, v) => ({
+		min: min.length < v.length ? min : v,
+		max: max.length > v.length ? max : v,
+	}), { min: array[0], max: array[0] });
+}
+
+const word_array = (async () => {
+	const raw_words = await fetch("./words.json")
+	return await raw_words.json()
+})()
+
+const words_min_max = (async () => {
+	const mm = min_max(await word_array)
+	return {
+		min: mm.min.length,
+		max: mm.max.length,
+	}
+})()
+
+const start = async (data = null) => {
+	const size = await words_min_max
+	window.parent.postMessage({ type: "min_max", data: size })
+}
+
+const generate = async ({ raw_fns, number_of_passes, size_min_value, size_max_value }) => {
+	const fns = Object.fromEntries(Object.entries(raw_fns).map(([name, value]) => [name, eval(value)]))
+
+	const randomPass = async () => {
+		const words = await word_array
+		
+		return fns.result(
+			random_sort(words.filter(fns.filter))
+				.slice(0, Math.floor(Math.random() * (Number(size_max_value) - Number(size_min_value) + 1)) + Number(size_min_value))
+				.map(fns.map)
+				.reduce(fns.reduce)
+		)
+	}
+
+	const generatePasses = n => Promise.all(Array(n).fill("").map((v) => randomPass()))
+	const passes = await generatePasses(number_of_passes)
+	window.parent.postMessage({ type: "passes", data: passes })
+}
+
+
+window.onmessage = (message) => {
+	const { type, data } = message.data
+	
+	switch (type) {
+		case "min_max":
+			start(data)
+			break;
+		case "generate":
+			generate(data)
+			break;
+	}
+}
+</script>
+</body>
+
+</html>

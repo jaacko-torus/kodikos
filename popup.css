@@ -1,0 +1,195 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap");
+
+body {
+	padding: 5px;
+	width: 300px;
+	
+	border-radius: 7px;
+	
+	color: #b3b1ad;
+	background-color: #0a0e14;
+	
+	font-family: "Fira Code", "Courier New", Courier, monospace;
+}
+
+#warning_opener {
+	cursor: pointer;
+	position: absolute;
+	left: -2em;
+	top: -2em;
+	width: 4em;
+	height: 4em;
+	border-radius: 100%;
+	background-color: #c2d94c;
+}
+
+#warning_opener:active, #warning_clipboard:active {
+	background-color: #b3b1ad;
+}
+
+#warning_clipboard {
+	font-size: small;
+	margin-left: 1.5em;
+	margin-right: 1.5em;
+	cursor: pointer;
+	text-align: center;
+	padding: 1em;
+	border-radius: 3px;
+	color: #0a0e14;
+	background-color: #c2d94c;
+}
+
+kbd {
+	border-radius: 6px;
+	margin-left: -0.5ch;
+	margin-right: -0.5ch;
+	padding: 3px;
+	padding-left: 1ch;
+	padding-right: 1ch;
+	background-color: #0a0e14;
+	color: #f39095;
+}
+
+h4 {
+	margin: 0;
+	padding: 0;
+}
+
+.hidden {
+	display: none;
+}
+
+hr {
+	border-color: #b3b1ad;
+	border-style: dashed;
+	margin-left: 1em;
+	margin-right: 1em;
+	margin-top: 0.75em;
+	margin-bottom: 0.75em;
+}
+
+#generator_container {
+	display: flex;
+	justify-content: space-between;
+	gap: 0.3em
+}
+
+.generate, #options {
+	font-family: inherit;
+	font-weight: bolder;
+	padding: 0.4em;
+	border: 0;
+	width: 100%;
+	border-radius: 3px;
+	color: #0a0e14;
+	background-color: #ee5960;
+}
+
+.generate:hover, #options:hover {
+	background-color: #f39095;
+}
+
+.generate:active, #options:active {
+	background-color: #b3b1ad;
+}
+
+#container > input {
+	width: 2.5em;
+}
+
+#container > div, #passwords {
+	padding: 0.25em 0 0.25em 0;
+}
+
+#container input[type="number"] {
+	background-color: #b3b1ad;
+	border: none;
+	border-radius: 3px;
+	font-family: inherit;
+	font-weight: bolder;
+	padding-left: 0.4em;
+	color: #0a0e14;
+}
+
+.CodeMirror {
+	font-family: "Fira Code", "Courier New", Courier, monospace;
+	height: fit-content;
+	border-radius: 3px;
+	border: 1px solid #b3b1ad;
+}
+
+.password {
+	display: flex;
+	
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	
+	font-family: "Fira Code", "Courier New", Courier, monospace;
+}
+
+.password input {
+	flex-grow: 1;
+	order: 1;
+	
+	padding: 0.5em 0.75em 0.5em 0.75em;
+	
+	border-color: #b3b1ad;
+	border-style: solid;
+	
+	border-left-width: 1px;
+	border-top-width: 1px;
+	border-right-width: 0;
+	border-bottom-width: 1px;
+	
+	border-radius: 3px 0px 0px 3px;
+	
+	font-size: small;
+	font-family: inherit;
+	
+	color: #b3b1ad;
+	background-color: #0a0e14;
+}
+
+.password input.copied {
+	color: #c2d94c;
+}
+
+input:focus-visible {
+	outline-offset: 0px;
+	outline: 0;
+}
+
+.password button {
+	width: 2em;
+	order: 2;
+	
+	border-color: #b3b1ad;
+	border-style: solid;
+	
+	border-left-width: 0;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	
+	border-radius: 0px 3px 3px 0px;
+	
+	background-color: #0a0e14;
+}
+
+.password button:hover {
+	background-color: #b3b1ad;
+}
+
+/* https://codepen.io/sosuke/full/Pjoqqp */
+.password button object {
+	filter: /* #b3b1ad */ invert(76%) sepia(11%) saturate(85%) hue-rotate(2deg) brightness(96%) contrast(80%);
+}
+
+.password button:hover object {
+	filter: /* #0a0e14 */ invert(3%) sepia(4%) saturate(7113%) hue-rotate(177deg) brightness(92%) contrast(96%);
+}
+
+.password button:active + input {
+	background-color: #b3b1ad;
+	color: #0a0e14;
+}

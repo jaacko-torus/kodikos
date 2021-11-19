@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Passgen</title>
+	
+	<link rel="stylesheet" href="lib/codemirror/codemirror.min.css">
+	<link rel="stylesheet" href="lib/codemirror/theme/ayu-dark.min.css">
+	<script defer src="lib/codemirror/codemirror.min.js"></script>
+	<script defer src="lib/codemirror/mode/javascript.min.js"></script>
+	
+	<link rel="stylesheet" href="popup.css">
+	<script defer src="popup.js"></script>
+</head>
+
+<body>
+	<!-- `eval` sandbox -->
+	<iframe id="frame" src="sandbox.html" frameborder="0" style="display: none;"></iframe>
+	
+	<div id="warning_opener"></div>
+	
+	<aside id="warning_container"" class="hidden">
+		<div id="warning_clipboard" ><b>Note: </b>Hold copy button for about a second before releasing for best experience. If it doesn't change color triple-click to select and then press <kbd>Ctrl-C</kbd> .<br><br><b><i>(Click to remove)</i></b></div>
+		<hr>
+	</aside>
+	
+	<input type="button" value="Options" id="options">
+	
+	<div id="container" class="hidden">
+		<h4>Size</h4>
+		<b>Min: </b><input type="number" id="size_min" value="5" min="0" >
+		<b>Max: </b><input type="number" id="size_max" value="8" min="0" >
+		<h4>Filter</h4>
+		<div id="filter"></div>
+		<h4>Map</h4>
+		<div id="map"></div>
+		<h4>Reduce</h4>
+		<div id="reduce"></div>
+		<h4>Result</h4>
+		<div id="result"></div>
+	</div>
+	
+	<hr>
+	
+	<div id="generator_container">
+		<input type="button" value="Generate 3" class="generate" id="generate_3">
+		<input type="button" value="Generate 5" class="generate" id="generate_5">
+		<input type="button" value="Generate 10" class="generate" id="generate_10">
+	</div>
+	
+	<div id="passwords">
+		<div class="password">
+			<button id="pass1_copy" type="button"><object data="clipboard.svg" type="image/svg+xml">Clipboard</object></button>
+			<input id="pass1" type="text" value="Password123">
+		</div>
+	</div>
+</body>
+
+</html>
